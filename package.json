@@ -1,0 +1,34 @@
+{
+  "name": "holiday_api",
+  "version": "1.0.0",
+  "description": "API for Holiday Management System",
+  "main": "bin/www",
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HolidayCalendar/holiday_api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HolidayCalendar/holiday_api/issues"
+  },
+  "homepage": "https://github.com/HolidayCalendar/holiday_api#readme",
+  "devDependencies": {
+    "express-generator": "^4.15.0",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "body-parser": "~1.17.1",
+    "command-line-args": "^4.0.7",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "express": "^4.15.3",
+    "mongoose": "^4.11.7",
+    "morgan": "~1.8.1",
+    "serve-favicon": "^2.4.3"
+  }
+}
