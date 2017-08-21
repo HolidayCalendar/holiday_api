@@ -1,14 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/test');
-
-const Samples = mongoose.model('Samples', {
-  first: String,
-  number: Number
-});
+const Samples = require('../models/sample');
 
 new Samples({first: 'Cos', number: 432}).save();
 
