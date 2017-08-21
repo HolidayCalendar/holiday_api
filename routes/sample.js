@@ -1,13 +1,49 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const Samples = require('../models/sample');
 
-new Samples({first: 'Cos', number: 432}).save();
+class User {
+  constructor(req, res) {
+    this.request = req;
+    this.response = res;
+  }
 
-router.get('/', async function(req, res, next) {
-  let samples = await Samples.find();
-  res.json(samples);
+  get params() {
+    return Object.extend({}, this.request.query);
+  }
+
+  render(data) {
+    this.response.json(data);
+  }
+
+  index() {
+    this.render(this.params);
+  }
+
+  create() {
+    this.params
+  }
+
+  update() {
+
+  }
+
+  destroy() {
+
+  }
+}
+
+router.get('/', function(req, res) {
+  new User(req, res).index();
+});
+router.post('/', function(req, res) {
+  new User(req, res).create();
+});
+router.put('/:id', function(req, res) {
+  new User(req, res).update();
+});
+router.delete('/:id', function(req, res) {
+  new User(req, res).destroy();
 });
 
 module.exports = router;
