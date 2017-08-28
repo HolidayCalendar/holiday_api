@@ -27,6 +27,15 @@ const router = express.Router();
 var samples = require('./routes/sample');
 router.use('/samples(.json)?', samples);
 
+var employees = require('./routes/employee');
+router.use('/employees(.json)?', employees);
+
+var holidays = require('./routes/holiday');
+router.use('/holidays(.json)?', holidays);
+
+var holidaysLimit = require('./routes/holidayLimit');
+router.use('/holidaysLimit(.json)?', holidaysLimit);
+
 app.use('/api', router);
 
 // catch 404 and forward to error handler
