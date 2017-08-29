@@ -1,31 +1,12 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-// Require controller module
-var EmployeesController = require('../controllers/employeeController');
+const EmployeesController = require('../controllers/employeesController');
 
-/* GET request for creating a Employee.*/
-// router.get('/create', employee_controller.employee_create_get);
-
-/* POST request for creating Employee. */
-router.post('/create', EmployeesController.create);
-
-/* GET request to delete Employee. */
-// router.get('/:id/delete', employee_controller.employee_delete_get);
-
-// POST request to delete Employee
-router.post('/:id/delete', EmployeesController.delete);
-
-/* GET request to update Employee. */
-// router.get('/:id/update', employee_controller.employee_update_get);
-
-// POST request to update Employee
-router.post('/:id/update', EmployeesController.update);
-
-/* GET request for one Employee. */
-router.get('/:id', EmployeesController.show);
-
-/* GET request for list of all Employee items. */
-router.get('/', EmployeesController.index);
+router.post('', EmployeesController.create.bind(EmployeesController));
+router.delete('/:id', EmployeesController.delete.bind(EmployeesController));
+router.put('/:id', EmployeesController.update.bind(EmployeesController));
+router.get('/:id', EmployeesController.show.bind(EmployeesController));
+router.get('', EmployeesController.index.bind(EmployeesController));
 
 module.exports = router;
