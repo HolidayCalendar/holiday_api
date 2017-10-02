@@ -1,6 +1,6 @@
 const Employees = require('../models/employee');
 const BaseClass = require('./baseController');
-var bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 class EmployeesController extends BaseClass {
 
