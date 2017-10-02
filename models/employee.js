@@ -5,8 +5,8 @@ var EmplyeeSchema = Schema({
   first_name: {type: String, required: true, max: 100},
   family_name: {type: String, required: true, max: 100},
   position: {type: String, required: true, enum: ['Admin', 'Team Leader', 'Employee'], default: 'Employee'},
-  // user: {type: Schema.Types.ObjectId, ref:'User', required: true},
-  // holiday_plan: {type: Schema.Types.ObjectId, ref:'Holiday', required: true},
+  email: {type: String, require: true},
+  password: {type: String, require: true}
 });
 
 EmplyeeSchema

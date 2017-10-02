@@ -39,6 +39,9 @@ router.use('/holidays(.json)?', holidays);
 var holidaysLimit = require('./routes/holidayLimit');
 router.use('/holidaysLimit(.json)?', holidaysLimit);
 
+var auth = require('./routes/auth');
+router.use('/auth(.json)?', auth);
+
 app.use('/api', router);
 
 // catch 404 and forward to error handler

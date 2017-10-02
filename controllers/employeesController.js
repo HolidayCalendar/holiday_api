@@ -1,5 +1,6 @@
 const Employees = require('../models/employee');
 const BaseClass = require('./baseController');
+var bcrypt = require('bcrypt');
 
 class EmployeesController extends BaseClass {
 
@@ -15,13 +16,18 @@ class EmployeesController extends BaseClass {
   }
 
   async create() {
+    const salt = await bcrypt.genSalt(10);
+    const password = this.request.body.password;
+    const passwordHash = await bcrypt.hash(password, salt);
+
     new Employees({
       first_name: this.request.body.first_name,
-      family_name: this.request.body.last_name,
+      family_name: this.request.body.family_name,
       position: this.request.body.position,
-      // user: this.request.body.user,
-      // holiday_plan: this.request.body.holiday_plan,
+      email: this.request.body.email,
+      password: passwordHash
     }).save();
+
     this.render({ message: 'Employee added'});
   }
 
@@ -29,8 +35,10 @@ class EmployeesController extends BaseClass {
     let id = this.request.params.id;
     let updatedObject = {
       first_name: this.request.body.first_name,
-      family_name: this.request.body.last_name,
-      position: this.request.body.position
+      family_name: this.request.body.family_name,
+      position: this.request.body.position,
+      email: this.request.body.email,
+      password: this.request.body.password
     };
 
     await Employees.findByIdAndUpdate(id, updatedObject, {new: true});
