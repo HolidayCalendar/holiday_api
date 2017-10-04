@@ -11,31 +11,38 @@ class AuthenticationController extends BaseClass {
     const email = this.request.body.email;
     const password = this.request.body.password;
 
-    Employees.findOne({'email': email}, function(err, user){
-        if(err) {
-          console.log(err);
-        }
-        if (user) {
-          if (bcrypt.compareSync(password, user.password)) {
-            let token = JWT.sign({
-              iss: 'Employee',
-              sub: user.id,
-              iat: new Date().getTime(),
-              exp: exp
-            }, JWT_SECRET);
-            console.log(token);
-            this.render({ message: 'token created'});
-          } else {
-            return;
-          }
-        } else {
-          this.render({ message: 'user does not exist'});
-        }
-    });
+    const foundEmployee = await Employees.findOne({email: email});
+
+    if (foundEmployee) {
+      if (bcrypt.compareSync(password, foundEmployee.password)) {
+        let token = JWT.sign({
+          auth:  'magic',
+          iss: 'Employee',
+          agent: this.request.headers['user-agent'],
+          sub: foundEmployee.id,
+          iat: new Date().getTime(),
+          exp: exp
+        }, JWT_SECRET);
+        this.render({ message: 'token created', token: token});
+      } else {
+        this.render({ message: 'invalid password'});
+        return;
+      }
+    } else {
+      this.render({ message: 'user does not exist'});
+    }
   }
 
   async reset() {
     this.render({ message: 'method not implemented'});
+  }
+
+  static signIn(req, res) {
+    new this(req, res).signIn();
+  }
+
+  static reset(req, res) {
+    new this(req, res).reset();
   }
 }
 

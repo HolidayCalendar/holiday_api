@@ -12,6 +12,14 @@ class BaseClass {
     this.response.json(data);
   }
 
+  isAuthenticated() {
+    console.log(this.request.headers.authorization);
+  }
+
+  currentEmplyee() {
+
+  }
+
   static show(req, res) {
     new this(req, res).show();
   }
@@ -30,14 +38,6 @@ class BaseClass {
 
   static delete(req, res) {
     new this(req, res).delete();
-  }
-
-  static signIn(req, res) {
-    new this(req, res).signIn();
-  }
-
-  static reset(req, res) {
-    new this(req, res).reset();
   }
 }
 

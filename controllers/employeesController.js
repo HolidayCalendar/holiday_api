@@ -11,6 +11,7 @@ class EmployeesController extends BaseClass {
   }
 
   async index() {
+    this.isAuthenticated();
     let employees = await Employees.find();
     this.render(employees);
   }
