@@ -1,3 +1,6 @@
+const JWT = require('jsonwebtoken');
+const { JWT_SECRET } = require('../config/secret');
+
 class BaseClass {
   constructor(req, res) {
     this.request = req;
@@ -13,19 +16,48 @@ class BaseClass {
   }
 
   isAuthenticated() {
-    console.log(this.request.headers.authorization);
+    const token = this.request.headers['x-auth-token'];
+    if (!token) {
+      return false;
+    }
+    const data = JWT.decode(token);
+    if (!data.sub) {
+      return false;
+    }
+    return true;
   }
 
   currentEmplyee() {
 
   }
 
+  verify() {
+    const token = this.request.headers['x-auth-token'];
+
+    JWT.verify(token, JWT_SECRET, function(err, decoded) {
+      if (err) {
+        console.log(err);
+      }
+    });
+  }
+
   static show(req, res) {
-    new this(req, res).show();
+    let o = new this(req, res);
+    o.verify();
+    if (o.isAuthenticated()) {
+      return o.show();
+    } else {
+      return this.error();
+    }
   }
 
   static index(req, res) {
-    new this(req, res).index();
+    let o = new this(req, res);
+    if (o.isAuthenticated()) {
+      return o.index();
+    } else {
+      return this.error();
+    }
   }
 
   static create(req, res) {
