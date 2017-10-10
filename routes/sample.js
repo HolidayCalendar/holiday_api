@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/test');
+mongoose.createConnection(process.env.MONGO_URL || 'mongodb://localhost:27017/test');
 
 const Samples = mongoose.model('Samples', {
   first: String,
